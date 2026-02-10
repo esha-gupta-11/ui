@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stone & Surfaces Group | Architectural Surfaces Collective</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Chivo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-void: #0a0a0f;
+            --color-deep: #111117;
+            --color-charcoal: #1a1a22;
+            --color-crimson: #c53030;
+            --color-blood: #9e2a2b;
+            --color-stone: #e8e6e1;
+            --color-pearl: #f5f3ef;
+            --color-gold: #d4af37;
+            --color-gold-light: #f4e4a6;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2.5rem;
+            --spacing-xl: 2rem;
+            --spacing-xxl: 4rem;
+            --spacing-giant: 4rem;
+            --transition-slow: 1s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-base: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --glass-blur: blur(20px);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.05);
+            --shadow-soft: 0 4px 30px rgba(0, 0, 0, 0.1);
+            --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.3);
+            --invert-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+                             0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--color-void);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-void);
+            color: var(--color-stone);
+            overflow-x: hidden;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Chivo', sans-serif;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        /* Glassmorphism Base */
+        .glass {
+            background: rgba(26, 26, 34, 0.4);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: var(--glass-border);
+            box-shadow: var(--invert-shadow);
+        }
+
+        .glass-light {
+            background: rgba(245, 243, 239, 0.08);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-charcoal);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-blood);
+            border-radius: 2px;
+        }
+
+        /* Header - Floating Glass */
+        .header {
+            position: fixed;
+            top: var(--spacing-md);
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - var(--spacing-md) * 2);
+            max-width: 1800px;
+            z-index: 1000;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: 16px;
+            transition: var(--transition-base);
+            z-index: 10000;
+        }
+
+        .header.scrolled {
+            top: var(--spacing-sm);
+            padding: var(--spacing-xs) var(--spacing-md);
+            width: calc(100% - var(--spacing-sm) * 2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 30px;
+            width: auto;
+           
+            transition: var(--transition-fast);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-stone);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+            padding: var(--spacing-xs) 0;
+            opacity: 0.8;
+            transition: var(--transition-fast);
+        }
+
+        .nav-link:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-crimson), var(--color-gold));
+            transition: var(--transition-base);
+        }
+
+        .nav-link:hover {
+            opacity: 1;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        /* Hero Section - Interactive 3D Concept */
+        .hero {
+            height: 110vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, var(--color-charcoal) 0%, var(--color-void) 70%);
+            z-index: 1;
+        }
+
+        .hero-orbital {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            perspective: 1000px;
+        }
+
+        .orbital-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            border: 1px solid rgba(197, 48, 48, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) rotateX(60deg);
+            transition: var(--transition-slow);
+            z-index: 2;
+        }
+
+        .orbital-ring:nth-child(2) {
+            width: 800px;
+            height: 800px;
+            border-color: rgba(212, 175, 55, 0.15);
+            transform: translate(-50%, -50%) rotateX(60deg) rotateY(30deg);
+        }
+
+        .orbital-ring:nth-child(3) {
+            width: 1000px;
+            height: 1000px;
+            border-color: rgba(232, 230, 225, 0.1);
+            transform: translate(-50%, -50%) rotateX(60deg) rotateY(60deg);
+        }
+
+        .brand-sphere {
+            position: absolute;
+            top: 60%;
+            left: 60%;
+            width: 500px;
+            height: 500px;
+            transform: translate(-30%, -30%);
+            z-index: 3;
+            transition: var(--transition-slow);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .brand-sphere.sare {
+            transform: translate(-50%, -50%) translateX(-350px) rotateY(-20deg);
+            background: radial-gradient(circle at 30% 30%, rgba(26, 26, 34, 0.9) 0%, rgba(10, 10, 15, 0.9) 70%);
+            box-shadow: var(--shadow-strong),
+                        inset 0 0 60px rgba(197, 48, 48, 0.2);
+                        margin-left: -250px;
+        }
+
+        .brand-sphere.kitchen {
+            transform: translate(-50%, -50%) translateX(350px) rotateY(20deg);
+            background: radial-gradient(circle at 70% 30%, rgba(26, 26, 34, 0.9) 0%, rgba(10, 10, 15, 0.9) 70%);
+            box-shadow: var(--shadow-strong),
+                        inset 0 0 60px rgba(212, 175, 55, 0.2);
+                        margin-left: -100px;
+        }
+
+        .brand-sphere:hover {
+            transform: translate(-280%, -280%) scale(1.05);
+            box-shadow: var(--shadow-strong),
+                        0 0 80px rgba(197, 48, 48, 0.4);
+        }
+
+        .brand-sphere.kitchen:hover {
+            box-shadow: var(--shadow-strong),
+                        0 0 80px rgba(212, 175, 55, 0.4);
+        }
+
+        .sphere-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          
+            transition: var(--transition-base);
+        }
+
+        .brand-sphere:hover .sphere-image {
+           
+            transform: scale(1.05);
+        }
+
+        .sphere-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 100%;
+            padding: var(--spacing-md);
+            z-index: 4;
+        }
+
+        .sphere-title {
+            color: #c53030;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            background: linear-gradient(135deg, var(--color-stone), var(--color-pearl));
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .sphere-subtitle {
+            font-size: 1rem;
+            color: #290909;
+            opacity: 0.9;
+            margin-bottom: var(--spacing-lg);
+            max-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .sphere-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            color: black;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: var(--transition-base);
+        }
+
+        .sphere-cta:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .hero-center {
+            position: absolute;
+            top: 13%;
+            left: 40%;
+            /* transform: translate(-50%, -50%); */
+            z-index: 5;
+            text-align: center;
+            pointer-events: none;
+            width: 500px;
+        }
+
+        .parent-logo {
+            height: 60px;
+            width: auto;
+           
+            margin-bottom: var(--spacing-md);
+            opacity: 0.9;
+        }
+
+        .parent-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.7;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Floating Geometry */
+        .floating-geometry {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .geometry-piece {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .geometry-piece:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            width: 100px;
+            height: 100px;
+            animation-delay: 0s;
+        }
+
+        .geometry-piece:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            width: 150px;
+            height: 150px;
+            animation-delay: -5s;
+        }
+
+        .geometry-piece:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            width: 80px;
+            height: 80px;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: var(--spacing-xxl) 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            /* display: inline-block; */
+        }
+
+        .title-accent {
+            color: var(--color-crimson);
+        }
+
+        /* About Section - Layered Glass */
+        .about {
+            position: relative;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr ;
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+
+        .about-statement {
+            text-align: center;
+            font-size: 2.2rem;
+            line-height: 1.2;
+            /* margin-bottom: var(--spacing-lg); */
+            position: relative;
+            padding-left: var(--spacing-lg);
+        }
+
+        .about-statement:before {
+           text-align: center;
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--color-crimson), var(--color-gold));
+            border-radius: 2px;
+        }
+
+        .about-text {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .glass-stack {
+            position: relative;
+            height: 500px;
+        }
+
+        .glass-layer {
+            position: absolute;
+            width: 70%;
+            height: 100%;
+            border-radius: 24px;
+            padding: var(--spacing-xl);
+            margin-left: 15%;
+            overflow: hidden;
+        }
+
+        .glass-layer:nth-child(1) {
+           
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1;
+         
+        }
+
+       
+        .layer-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+            z-index: -1;
+            transition: var(--transition-base);
+        }
+
+        .glass-layer:hover .layer-bg {
+            opacity: 0.5;
+            transform: scale(1.05);
+        }
+
+        .layer-title {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            z-index: 1;
+        }
+
+        .layer-text {
+            opacity: 0.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* USP Section - Interactive Cards */
+        .usp {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .usp-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .usp-card {
+            padding: var(--spacing-xl);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-base);
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .usp-card:nth-child(odd) {
+            background: rgba(197, 48, 48, 0.068);
+            border: 1px solid rgba(197, 48, 48, 0.1);
+        }
+
+        .usp-card:nth-child(even) {
+            background: rgba(212, 175, 55, 0.082);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .usp-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .usp-number {
+            font-size: 8rem;
+            font-weight: 700;
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            opacity: 0.5;
+            line-height: 1;
+            transition: var(--transition-base);
+        }
+
+        .usp-card:hover .usp-number {
+            opacity: 0.5;
+            transform: scale(1.1);
+        }
+
+        .usp-title {
+            color: #d4af37;
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            z-index: 2;
+        }
+
+        .usp-text {
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+        
+         /* Materials Showcase */
+        .materials {
+            padding: var(--spacing-giant) 0;
+            position: relative;
+        }
+
+        .materials-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xxl);
+        }
+
+        .materials-title {
+            font-size: 4rem;
+            font-weight: 300;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        .material-item {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            border: var(--border-thin);
+            transition: var(--transition-base);
+        }
+
+        .material-item:hover {
+            border-color: var(--color-accent);
+        }
+
+        .material-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+            filter: grayscale(100%) contrast(120%);
+        }
+
+        .material-item:hover .material-image {
+            transform: scale(1.05);
+            filter: grayscale(0%) contrast(140%);
+        }
+
+        .material-overlay {
+            position: absolute;
+            color:#fff;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: var(--spacing-xl);
+            background: linear-gradient(to top, rgba(5, 5, 5, 0.9), transparent);
+            transform: translateY(20px);
+            transition: var(--transition-base);
+        }
+
+        .material-item:hover .material-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .material-name {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .material-type {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+
+        /* Legacy Section */
+        .legacy {
+            padding: var(--spacing-giant) 0;
+            position: relative;
+        }
+
+        .legacy-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: var(--spacing-xxl);
+            align-items: center;
+        }
+
+        .legacy-stats {
+            display: grid;
+            gap: var(--spacing-xl);
+        }
+
+        .stat-item {
+            border-bottom: var(--border-thin);
+            padding-bottom: var(--spacing-lg);
+        }
+
+        .stat-number {
+            font-size: 5rem;
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: var(--spacing-sm);
+            color: #b8860b;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            opacity: 0.7;
+        }
+
+        .legacy-text {
+            font-size: 2.5rem;
+            font-weight: 300;
+            line-height: 1.3;
+            max-width: 800px;
+        }
+
+        .legacy-text span {
+            color: #c53030;
+            font-weight: 400;
+        }
+
+        /* CTA Section - Interactive Portal */
+        .cta {
+            position: relative;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .portal-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .portal-ring {
+            position: absolute;
+            border: 2px solid rgba(197, 48, 48, 0.3);
+            border-radius: 50%;
+            animation: rotate 60s infinite linear;
+        }
+
+        .portal-ring:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            animation-delay: 0s;
+        }
+
+        .portal-ring:nth-child(2) {
+            width: 600px;
+            height: 600px;
+            animation-delay: -10s;
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+
+        .portal-ring:nth-child(3) {
+            width: 800px;
+            height: 800px;
+            animation-delay: -20s;
+            border-color: rgba(232, 230, 225, 0.1);
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .portal-center {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .portal-title {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-lg);
+            background: linear-gradient(135deg, var(--color-pearl), var(--color-gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .portal-buttons {
+            display: flex;
+            gap: var(--spacing-lg);
+            justify-content: center;
+            margin-top: var(--spacing-xl);
+        }
+
+        .portal-button {
+            padding: var(--spacing-md) var(--spacing-xl);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: var(--transition-base);
+        }
+
+        .portal-button.sare {
+            background: rgba(197, 48, 48, 0.1);
+            border: 1px solid rgba(197, 48, 48, 0.3);
+            color: var(--color-pearl);
+        }
+
+        .portal-button.kitchen {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--color-pearl);
+        }
+
+        .portal-button:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            transition: var(--transition-base);
+            z-index: -1;
+        }
+
+        .portal-button.sare:before {
+            background: linear-gradient(90deg, var(--color-crimson), rgba(197, 48, 48, 0.8));
+        }
+
+        .portal-button.kitchen:before {
+            background: linear-gradient(90deg, var(--color-gold), rgba(212, 175, 55, 0.8));
+        }
+
+        .portal-button:hover:before {
+            width: 100%;
+        }
+
+        .portal-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Footer - Minimal Glass */
+        .footer {
+            padding: var(--spacing-xl) 0 var(--spacing-lg);
+            position: relative;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xl);
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: var(--spacing-xl);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-logo {
+            height: 80px;
+            width: auto;
+           
+            opacity: 0.9;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: var(--spacing-xl);
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: var(--spacing-sm);
+            opacity: 0.5;
+        }
+
+        .footer-link {
+            color: var(--color-stone);
+            text-decoration: none;
+            font-size: 0.95rem;
+            opacity: 0.7;
+            transition: var(--transition-fast);
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+            color: var(--color-crimson);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--spacing-lg);
+            font-size: 0.9rem;
+            opacity: 0.5;
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .social-link {
+            color: var(--color-stone);
+            font-size: 1.1rem;
+            opacity: 0.7;
+            transition: var(--transition-fast);
+        }
+
+        .social-link:hover {
+            opacity: 1;
+            color: var(--color-crimson);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero-center {
+                width: 400px;
+            }
+            
+            .brand-sphere {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .brand-sphere.sare {
+                transform: translate(-50%, -50%) translateX(-280px) rotateY(-20deg);
+            }
+            
+            .brand-sphere.kitchen {
+                transform: translate(-50%, -50%) translateX(280px) rotateY(20deg);
+            }
+            
+            .sphere-title {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 3rem;
+            }
+            
+            .stat-number {
+                font-size: 5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                height: 100vh;
+            }
+            
+            .brand-sphere.sare {
+                transform: translate(-50%, -50%) translateX(-220px) rotateY(-20deg);
+            }
+            
+            .brand-sphere.kitchen {
+                transform: translate(-50%, -50%) translateX(220px) rotateY(20deg);
+            }
+            
+            .hero-center {
+                width: 350px;
+            }
+            
+            .parent-logo {
+                height: 45px;
+            }
+            
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+            
+            .glass-stack {
+                height: 400px;
+                margin-top: var(--spacing-lg);
+            }
+            
+            .usp-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .legacy-stats {
+                gap: var(--spacing-lg);
+            }
+            
+            .portal-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-top {
+                flex-direction: column;
+                gap: var(--spacing-lg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: var(--spacing-sm) var(--spacing-md);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-center {
+                width: 300px;
+            }
+            
+            .parent-logo {
+                height: 35px;
+            }
+            
+            .brand-sphere {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .brand-sphere.sare {
+                transform: translate(-50%, -50%) translateX(-180px) rotateY(-20deg);
+            }
+            
+            .brand-sphere.kitchen {
+                transform: translate(-50%, -50%) translateX(180px) rotateY(20deg);
+            }
+            
+            .sphere-title {
+                font-size: 2.2rem;
+            }
+            
+            .section {
+                padding: var(--spacing-xl) 0;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .about-statement {
+                font-size: 1.8rem;
+            }
+            
+            .glass-stack {
+                height: 350px;
+            }
+            
+            .stat-number {
+                font-size: 4rem;
+            }
+            
+            .footer-nav {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+            
+            .hero-center {
+                width: 250px;
+            }
+            
+            .parent-logo {
+                height: 30px;
+            }
+            
+            .brand-sphere {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .brand-sphere.sare {
+                transform: translate(-50%, -50%) translateX(-140px) rotateY(-20deg);
+            }
+            
+            .brand-sphere.kitchen {
+                transform: translate(-50%, -50%) translateX(140px) rotateY(20deg);
+            }
+            
+            .sphere-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .about-statement {
+                font-size: 1.6rem;
+                padding-left: var(--spacing-md);
+            }
+            
+            .glass-stack {
+                height: 300px;
+            }
+            
+            .stat-number {
+                font-size: 3.5rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header glass">
+        <div class="header-content">
+            <a href="#" class="logo-container">
+                <img src="https://saregranite.com/images/logo-white.png" alt="Stone & Surfaces Group" class="logo">
+            </a>
+            <nav class="nav">
+                <div class="nav-links">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#usp" class="nav-link">Excellence</a>
+                    <a href="#legacy" class="nav-link">Legacy</a>
+                    <a href="#cta" class="nav-link">Brands</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        
+        <!-- Floating Geometry -->
+        <div class="floating-geometry">
+            <div class="geometry-piece"></div>
+            <div class="geometry-piece"></div>
+            <div class="geometry-piece"></div>
+        </div>
+        
+        <!-- Orbital Rings -->
+        <div class="hero-orbital" id="orbital">
+            <div class="orbital-ring"></div>
+            <div class="orbital-ring"></div>
+            <div class="orbital-ring"></div>
+            
+            <!-- Brand Spheres -->
+            <div class="brand-sphere sare" id="sphere-sare">
+                <img src="https://png.pngtree.com/thumb_back/fw800/background/20260122/pngtree-white-marble-surface-with-stack-of-paper-and-natural-light-shadow-image_21170710.webp" alt="SARE Granite & Marble" class="sphere-image">
+                <div class="sphere-content">
+                    <h2 class="sphere-title">SARE</h2>
+                    <p class="sphere-subtitle">Granite & Marble Surfaces</p>
+                    <a href="#" class="sphere-cta">
+                        <span>Enter</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="brand-sphere kitchen" id="sphere-kitchen">
+                <img src="https://media.designcafe.com/wp-content/uploads/2022/02/20203332/black-marble-floor-design-for-a-white-kitchen.jpg" alt="Kitchen & Bath Countertops" class="sphere-image">
+                <div class="sphere-content">
+                    <h2 class="sphere-title">K&B</h2>
+                    <p class="sphere-subtitle">Kitchen & Bath Countertops</p>
+                    <a href="#" class="sphere-cta">
+                        <span>Enter</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Center Logo -->
+        <div class="hero-center">
+            <img src="https://saregranite.com/images/logo-white.png" alt="Stone & Surfaces Group" class="parent-logo">
+            <p class="parent-subtitle">A collective of premium surface brands redefining architectural materiality since 1995</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title">Our <span class="title-accent">Architectural</span> Philosophy</h2>
+            <div class="about-container">
+                <div class="about-content">
+                    <p class="about-statement">We transform geological time into architectural moments—where raw stone meets refined design.</p>
+                    <p class="about-text">Stone & Surfaces Group is an architectural material collective specializing in the curation and transformation of natural stone into surfaces that define spaces.</p>
+                    <p class="about-text">Our approach combines geological expertise with architectural sensibility, creating surfaces that are both enduring and expressive.</p>
+                </div>
+                <div class="glass-stack">
+                    <div class="glass-layer">
+                        <img src="https://cdn.shopify.com/s/files/1/0625/0070/0405/files/4_e3ce57ff-4774-4d8c-83fc-fd54112af858.webp" alt="Material Integrity" class="layer-bg">
+                         </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USP Section -->
+    <section id="usp" class="section usp">
+        <div class="container">
+            <h2 class="section-title">Dimensions of <span class="title-accent">Excellence</span></h2>
+            <div class="usp-container">
+                <div class="usp-card">
+                    <div class="usp-number">01</div>
+                    <h3 class="usp-title">Global Sourcing Network</h3>
+                    <p class="usp-text">Direct partnerships with quarries across five continents, ensuring access to the world's most exceptional stone varieties.</p>
+                </div>
+                <div class="usp-card">
+                    <div class="usp-number">02</div>
+                    <h3 class="usp-title">Architectural Precision</h3>
+                    <p class="usp-text">Digital templating and CNC fabrication ensure millimeter-perfect installation for even the most complex designs.</p>
+                </div>
+                <div class="usp-card">
+                    <div class="usp-number">03</div>
+                    <h3 class="usp-title">Sustainable Practice</h3>
+                    <p class="usp-text">Ethical sourcing and zero-waste fabrication processes that respect both material and environment.</p>
+                </div>
+                <div class="usp-card">
+                    <div class="usp-number">04</div>
+                    <h3 class="usp-title">Technical Innovation</h3>
+                    <p class="usp-text">Proprietary sealing and finishing technologies that enhance durability while preserving natural beauty.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+     <!-- Materials Showcase -->
+    <section id="materials" class="materials">
+        <div class="geometric-bg"></div>
+        <div class="container">
+            <div class="materials-header opacity-0 animate-fadeInUp">
+               <h2 class="section-title">Material<span class="title-accent"> Archive</span></h2>
+                <p class="philosophy-subtitle" style="max-width: 600px; margin: 0 auto;">
+                    A curated selection from our geological library, showcasing the diversity and 
+                    character of natural stone.
+                </p>
+            </div>
+            
+            <div class="materials-grid">
+                <div class="material-item opacity-0 animate-fadeInUp">
+                    <img src="https://img.interiorcompany.com/interior/webproduct/306638684109203244476.png?aio=w-1200;" 
+                         alt="Carrara Marble" class="material-image">
+                    <div class="material-overlay">
+                        <div class="material-name">Carrara</div>
+                        <div class="material-type">Marble</div>
+                    </div>
+                </div>
+                
+                <div class="material-item opacity-0 animate-fadeInUp animate-delay-1">
+                    <img src="https://dropinblog.net/cdn-cgi/image/fit=scale-down,width=1140/34246798/files/featured/marble_main_image.png" 
+                         alt="Absolute Black Granite" class="material-image">
+                    <div class="material-overlay">
+                        <div class="material-name">Absolute Black</div>
+                        <div class="material-type">Granite</div>
+                    </div>
+                </div>
+                
+                <div class="material-item opacity-0 animate-fadeInUp animate-delay-2">
+                    <img src="https://hgtvhome.sndimg.com/content/dam/images/hgtv/fullset/2016/9/27/0/CI_Terra-Cotta-Design-Build-bathroom-countertops.jpg.rend.hgtvcom.616.462.suffix/1474995179713.jpeg" 
+                         alt="Travertine" class="material-image">
+                    <div class="material-overlay">
+                        <div class="material-name">Travertine</div>
+                        <div class="material-type">Limestone</div>
+                    </div>
+                </div>
+                
+                <div class="material-item opacity-0 animate-fadeInUp animate-delay-3">
+                    <img src="https://miladmarble.rocmet.com/wp-content/smush-webp/2016/02/RoomScene-Beige-Marble-LImestone-16.jpg.webp" 
+                         alt="Quartzite" class="material-image">
+                    <div class="material-overlay">
+                        <div class="material-name">Quartzite</div>
+                        <div class="material-type">Metamorphic</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Legacy -->
+    <section id="legacy" class="legacy">
+        <div class="geometric-bg"></div>
+        <div class="container">
+            <div class="legacy-container">
+                <div class="legacy-stats opacity-0 animate-fadeInUp">
+                    <div class="stat-item">
+                        <div class="stat-number" id="yearsCount">30+</div>
+                        <div class="stat-label">Years</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">12,500+</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">46</div>
+                        <div class="stat-label">Countries</div>
+                    </div>
+                </div>
+                
+                <div class="legacy-text opacity-0 animate-fadeInUp animate-delay-1">
+                    Our legacy is measured in <span>geological time</span>—transforming raw stone into architectural moments that endure beyond trends and generations.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="section cta">
+        <div class="portal-container">
+            <div class="portal-ring"></div>
+            <div class="portal-ring"></div>
+            <div class="portal-ring"></div>
+            
+            <div class="portal-center">
+                <h2 class="portal-title">Enter Our World</h2>
+                <p class="parent-subtitle">Two distinct brands, united by a singular commitment to architectural excellence</p>
+                
+                <div class="portal-buttons">
+                    <a href="#" class="portal-button sare">
+                        <span>Explore SARE</span>
+                        <i class="fas fa-gem"></i>
+                    </a>
+                    <a href="#" class="portal-button kitchen">
+                        <span>Discover Kitchen & Bath</span>
+                        <i class="fas fa-water"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-top">
+                    <a href="#" class="logo-container">
+                        <img src="https://saregranite.com/images/logo-white.png" alt="Stone & Surfaces Group" class="footer-logo">
+                    </a>
+                    <div class="footer-nav">
+                        <div class="footer-column">
+                            <div class="footer-title">Brands</div>
+                            <a href="#" class="footer-link">SARE Granite & Marble</a>
+                            <a href="#" class="footer-link">Kitchen & Bath Countertops</a>
+                        </div>
+                        <div class="footer-column">
+                            <div class="footer-title">Collective</div>
+                            <a href="#about" class="footer-link">Philosophy</a>
+                            <a href="#usp" class="footer-link">Excellence</a>
+                            <a href="#legacy" class="footer-link">Legacy</a>
+                        </div>
+                        <div class="footer-column">
+                            <div class="footer-title">Connect</div>
+                            <a href="#" class="footer-link">For Architects</a>
+                            <a href="#" class="footer-link">Material Library</a>
+                            <a href="#" class="footer-link">Contact</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="footer-copyright">© 2023 Stone & Surfaces Group. All architectural material rights reserved.</div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Interactive 3D Orbital System
+        const orbital = document.getElementById('orbital');
+        const sphereSare = document.getElementById('sphere-sare');
+        const sphereKitchen = document.getElementById('sphere-kitchen');
+        const rings = document.querySelectorAll('.orbital-ring');
+
+        // Mouse move interaction for orbital system
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 2 - 1;
+            const y = (e.clientY / window.innerHeight) *2 - 1;
+            
+            // Rotate orbital rings based on mouse position
+            rings.forEach((ring, index) => {
+                const speed = (index + 1) * 0.5;
+                ring.style.transform = `translate(-50%, -50%) rotateX(${60 + y * 10}deg) rotateY(${x * 30 * speed}deg)`;
+            });
+            
+            // Move spheres based on mouse position
+            sphereSare.style.transform = `translate(-50%, -50%) translateX(${-350 - x * 500}px) rotateY(${-5 - x * 50}deg)`;
+            sphereKitchen.style.transform = `translate(-50%, -50%) translateX(${350 - x * 500}px) rotateY(${5- x * 50}deg)`;
+        });
+
+        // Sphere hover effects
+        sphereSare.addEventListener('mouseenter', () => {
+            sphereSare.style.boxShadow = 'var(--shadow-strong), 0 0 100px rgba(197, 48, 48, 0.6)';
+            sphereKitchen.style.opacity = '0.7';
+        });
+
+        sphereSare.addEventListener('mouseleave', () => {
+            sphereSare.style.boxShadow = 'var(--shadow-strong), inset 0 0 60px rgba(197, 48, 48, 0.2)';
+            sphereKitchen.style.opacity = '1';
+        });
+
+        sphereKitchen.addEventListener('mouseenter', () => {
+            sphereKitchen.style.boxShadow = 'var(--shadow-strong), 0 0 100px rgba(212, 175, 55, 0.6)';
+            sphereSare.style.opacity = '0.7';
+        });
+
+        sphereKitchen.addEventListener('mouseleave', () => {
+            sphereKitchen.style.boxShadow = 'var(--shadow-strong), inset 0 0 60px rgba(212, 175, 55, 0.2)';
+            sphereSare.style.opacity = '1';
+        });
+
+        // Animated counter for years
+        const yearsElement = document.getElementById('yearsCount');
+        const targetYears = 28;
+        let currentYears = 0;
+        let counterStarted = false;
+
+        function animateCounter() {
+            if (currentYears < targetYears) {
+                currentYears++;
+                yearsElement.textContent = currentYears;
+                setTimeout(animateCounter, 60);
+            }
+        }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Counter animation
+                    if (entry.target.id === 'legacy' && !counterStarted) {
+                        counterStarted = true;
+                        setTimeout(animateCounter, 300);
+                    }
+                    
+                    // USP card animations
+                    if (entry.target.classList.contains('usp-card')) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe legacy section
+        const legacySection = document.getElementById('legacy');
+        observer.observe(legacySection);
+
+        // Observe USP cards with staggered delay
+        document.querySelectorAll('.usp-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+     
+
+        // Portal button hover effect enhancement
+        const portalButtons = document.querySelectorAll('.portal-button');
+        portalButtons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.transform = 'translateY(-8px) scale(1.05)';
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translateY(-5px)';
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize floating geometry animation
+        const geometryPieces = document.querySelectorAll('.geometry-piece');
+        geometryPieces.forEach((piece, index) => {
+            piece.style.animationDelay = `${index * 5}s`;
+        });
+    </script>
+</body>
+</html>
