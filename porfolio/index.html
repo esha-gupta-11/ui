@@ -7,7 +7,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
@@ -20,7 +20,7 @@
         :root {
             --primary-color: #00d4ff;
             --secondary-color: #7c3aed;
-            --accent-color: #ec4899;
+            --accent-color: #5e28f1;
             --bg-dark: #0a0a0f;
             --bg-darker: #050508;
             --text-primary: #ffffff;
@@ -182,6 +182,7 @@
         }
 
         .spline-container {
+            
             position: absolute;
             top: 0;
             left: 0;
@@ -216,13 +217,46 @@
 
         .hero-title {
             font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
+            font-weight: 100;
             margin-bottom: 20px;
             line-height: 1.2;
             background: linear-gradient(169deg, #e3abff, #3905b7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+        
+        /* Cursive italic style for rotating role - only Developer/Designer */
+        /* .rotating-role {
+            font-family: 'Dancing Script', cursive;
+            font-style: italic;
+            font-weight: 700;
+            display: inline-block;
+            background: linear-gradient(135deg, #dfd2f8, #b266ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
+        } */
+        /* Replace your .rotating-role CSS with this */
+        .typing-role {
+            font-family: 'Dancing Script', cursive;
+            font-style: italic;
+            font-weight: 700;
+            display: inline-block;
+            background: linear-gradient(135deg, #dfd2f8, #b266ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
+            border-right: 3px solid #b266ff;
+            padding-right: 5px;
+            animation: blink-cursor 1s step-end infinite;
+        }
+
+        @keyframes blink-cursor {
+            from, to { border-color: transparent; }
+            50% { border-color: #b266ff; }
         }
 
         .hero-description {
@@ -273,7 +307,7 @@
         }
 
         section {
-            padding: 30px 60px;
+            padding: 130px 60px;
             position: relative;
         }
 
@@ -497,6 +531,60 @@
         .project-link:hover {
             gap: 12px;
             text-shadow: 0 0 10px var(--primary-color);
+        }
+        
+        /* Hobby Section Styles */
+        .hobby {
+            background: var(--bg-dark);
+        }
+        
+        .hobby-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+        
+        .hobby-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .hobby-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.3);
+        }
+        
+        .hobby-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-color), #b266ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hobby-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #ffb3e6;
+            font-weight: 700;
+        }
+        
+        .hobby-card p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
         }
 
         .contact {
@@ -723,6 +811,10 @@
             .project-card {
                 min-width: 100%;
             }
+            
+            .hobby-container {
+                grid-template-columns: 1fr;
+            }
 
             .contact-form {
                 padding: 30px;
@@ -751,6 +843,7 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#projects">Projects</a></li>
+            <li><a href="#hobby">Hobbies</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="hamburger">
@@ -760,21 +853,21 @@
         </div>
     </nav>
 
-    <main data-scroll-container>
+    <main>
         <section id="home" class="hero">
             <div class="spline-container">
                 <iframe src='https://my.spline.design/orb-ppl81U8uiPVbWWpxE8EjPBmx/' frameborder='0' width='100%' height='100%'></iframe>
             </div>
            
             <div class="hero-content">
-                <div class="hero-subtitle" data-scroll data-scroll-speed="1">Welcome</div>
-                <h1 class="hero-title" data-scroll data-scroll-speed="2">Hi, I'm Esha<br>Web Developer</h1>
-                <p class="hero-description" data-scroll data-scroll-speed="1.5">Creating immersive digital experiences with cutting-edge technology</p>
-                <a href="#contact" class="cta-button" data-scroll data-scroll-speed="1">Hire Me</a>
+                <div class="hero-subtitle">Welcome</div>
+                <h1 class="hero-title" data-scroll data-scroll-speed="2">Hi, I'm Esha<br>Web <span class="typing-role" id="typing-role"></span></h1>
+                <p class="hero-description">Creating immersive digital experiences with cutting-edge technology</p>
+                <a href="#contact" class="cta-button">Hire Me</a>
             </div>
         </section>
 
-        <section id="about" data-scroll-section>
+        <section id="about"   >
             <h2 class="section-title">About Me</h2>
             <div class="about-container">
                 <div class="profile-image-container">
@@ -815,12 +908,12 @@
             </div>
         </section>
 
-        <section id="projects" class="projects" data-scroll-section>
+        <section id="projects" class="projects"   >
             <h2 class="section-title">Featured Projects</h2>
             <div class="projects-scroll-container">
                 <div class="projects-grid">
                     <div class="project-card">
-                        <img src="project-1.png" alt="Project 1" class="project-image">
+                        <img src="https://uploads.onecompiler.io/43kc4ujua/44da8gskw/Screenshot%202026-02-11%20163042.png" alt="Project 1" class="project-image">
                         <div class="project-info">
                             <h3>3D Portfolio Website</h3>
                             <p>An immersive portfolio experience featuring interactive 3D elements and smooth animations.</p>
@@ -834,7 +927,7 @@
                         </div>
                     </div>
                     <div class="project-card">
-                        <img src="project-2.png" alt="Project 2" class="project-image">
+                        <img src="https://uploads.onecompiler.io/43kc4ujua/44da8gskw/Screenshot%202026-02-11%20163340.png" alt="Project 2" class="project-image">
                         <div class="project-info">
                             <h3>Gaming Platform UI</h3>
                             <p>Next-generation gaming interface with stunning visuals and seamless user experience.</p>
@@ -847,7 +940,7 @@
                         </div>
                     </div>
                     <div class="project-card">
-                        <img src="project-3.png" alt="Project 3" class="project-image">
+                        <img src="https://uploads.onecompiler.io/43kc4ujua/44da8gskw/Screenshot%202026-02-11%20174013.png" alt="Project 3" class="project-image">
                         <div class="project-info">
                             <h3>Interactive Web Experience</h3>
                             <p>A creative web application with advanced animations and user interactions.</p>
@@ -860,7 +953,7 @@
                         </div>
                     </div>
                     <div class="project-card">
-                        <img src="project-4.png" alt="Project 4" class="project-image">
+                        <img src="https://uploads.onecompiler.io/43kc4ujua/44da8gskw/Screenshot%202026-02-11%20174223.png" alt="Project 4" class="project-image">
                         <div class="project-info">
                             <h3>E-Commerce Platform</h3>
                             <p>Modern e-commerce solution with smooth checkout flow and responsive design.</p>
@@ -901,8 +994,43 @@
                 </div>
             </div>
         </section>
+        
+        <!-- New Hobby Section Added Here -->
+        <section id="hobby" class="hobby"   >
+            <h2 class="section-title">My Hobbies</h2>
+            <div class="hobby-container">
+                <div class="hobby-card">
+                    <div class="hobby-icon">
+                        <i class="ph-light ph-camera"></i>
+                    </div>
+                    <h3>Photography</h3>
+                    <p>Capturing moments and perspectives through my lens, exploring urban landscapes and nature's beauty.</p>
+                </div>
+                <div class="hobby-card">
+                    <div class="hobby-icon">
+                        <i class="ph-light ph-palette"></i>
+                    </div>
+                    <h3>Digital Art</h3>
+                    <p>Creating illustrations and concept art, blending traditional techniques with modern digital tools.</p>
+                </div>
+                <div class="hobby-card">
+                    <div class="hobby-icon">
+                        <i class="ph-light ph-headphones"></i>
+                    </div>
+                    <h3>Music Production</h3>
+                    <p>Composing electronic beats and ambient soundscapes for relaxation and creative projects.</p>
+                </div>
+                <div class="hobby-card">
+                    <div class="hobby-icon">
+                        <i class="ph-light ph-plant"></i>
+                    </div>
+                    <h3>Gardening</h3>
+                    <p>Cultivating a small indoor garden, finding peace and balance in nurturing plants.</p>
+                </div>
+            </div>
+        </section>
 
-        <section id="contact" class="contact" data-scroll-section>
+        <section id="contact" class="contact"   >
             <h2 class="section-title">Get In Touch</h2>
             <div class="contact-container">
                 <form class="contact-form">
@@ -944,202 +1072,82 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#projects">Projects</a></li>
+                    <li><a href="#hobby">Hobbies</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <p class="footer-text">&copy; 2024 Esha. All rights reserved.</p>
             </div>
         </footer>
     </main>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
 
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
-
-       
-
-        function initAnimations() {
-            gsap.from(".hero-subtitle", {
-                opacity: 0,
-                y: 50,
-                filter: "blur(10px)",
-                duration: 1,
-                delay: 0.2
-            });
-
-            gsap.from(".hero-title", {
-                opacity: 0,
-                y: 50,
-                filter: "blur(10px)",
-                duration: 1,
-                delay: 0.4
-            });
-
-            gsap.from(".hero-description", {
-                opacity: 0,
-                y: 50,
-                filter: "blur(10px)",
-                duration: 1,
-                delay: 0.6
-            });
-
-            gsap.from(".cta-button", {
-                opacity: 0,
-                scale: 0.8,
-                duration: 0.8,
-                delay: 0.8
-            });
-
-            gsap.from(".spline-container", {
-                opacity: 0,
-                x: 100,
-                duration: 1.5,
-                delay: 0.3
-            });
-
-            gsap.to(".orb-1", {
-                y: -20,
-                x: 10,
-                duration: 4,
-                repeat: -1,
-                yoyo: true,
-                ease: "power1.inOut"
-            });
-
-            gsap.to(".orb-2", {
-                y: 20,
-                x: -15,
-                duration: 5,
-                repeat: -1,
-                yoyo: true,
-                ease: "power1.inOut"
-            });
-
-            gsap.to(".orb-3", {
-                scale: 1.2,
-                duration: 3,
-                repeat: -1,
-                yoyo: true,
-                ease: "power1.inOut"
-            });
-
-            gsap.from(".profile-image-container", {
-                scrollTrigger: {
-                    trigger: ".about-container",
-                    start: "top 80%",
-                    toggleActions: "play none none reverse"
-                },
-                opacity: 0,
-                x: -100,
-                filter: "blur(10px)",
-                duration: 1
-            });
-
-            gsap.from(".about-content", {
-                scrollTrigger: {
-                    trigger: ".about-container",
-                    start: "top 80%",
-                    toggleActions: "play none none reverse"
-                },
-                opacity: 0,
-                x: 100,
-                filter: "blur(10px)",
-                duration: 1
-            });
-
-            gsap.from(".skill-item", {
-                scrollTrigger: {
-                    trigger: ".skills-grid",
-                    start: "top 85%",
-                    toggleActions: "play none none reverse"
-                },
-                opacity: 0,
-                y: 30,
-                scale: 0.8,
-                stagger: 0.1,
-                duration: 0.6
-            });
-
-            gsap.from(".project-card", {
-                scrollTrigger: {
-                    trigger: ".projects-grid",
-                    start: "top 80%",
-                    toggleActions: "play none none reverse"
-                },
-                opacity: 0,
-                y: 60,
-                scale: 0.9,
-                stagger: 0.15,
-                duration: 0.8
-            });
-
-            gsap.from(".contact-form", {
-                scrollTrigger: {
-                    trigger: ".contact",
-                    start: "top 70%",
-                    toggleActions: "play none none reverse"
-                },
-                opacity: 0,
-                y: 50,
-                filter: "blur(10px)",
-                duration: 1
-            });
-
-            gsap.from(".form-group", {
-                scrollTrigger: {
-                    trigger: ".contact-form",
-                    start: "top 75%",
-                    toggleActions: "play none none reverse"
-                },
-                opacity: 0,
-                x: -30,
-                stagger: 0.1,
-                duration: 0.6
-            });
-
-            gsap.from(".social-link", {
-                scrollTrigger: {
-                    trigger: ".social-links",
-                    start: "top 90%",
-                    toggleActions: "play none none reverse"
-                },
-                opacity: 0,
-                scale: 0,
-                stagger: 0.1,
-                duration: 0.5
-            });
-
-            gsap.from(".footer-content", {
-                scrollTrigger: {
-                    trigger: "footer",
-                    start: "top 90%",
-                    toggleActions: "play none none reverse"
-                },
-                opacity: 0,
-                y: 60,
-                filter: "blur(10px)",
-                duration: 1
-            });
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // ===== TYPEWRITER EFFECT =====
+    const typingElement = document.getElementById('typing-role');
+    const roles = ['Developer', 'Designer'];
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let isWaiting = false;
+    
+    function typeWriter() {
+        if (!typingElement) return;
+        
+        const currentRole = roles[roleIndex];
+        
+        if (isDeleting) {
+            typingElement.textContent = currentRole.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typingElement.textContent = currentRole.substring(0, charIndex + 1);
+            charIndex++;
         }
+        
+        if (!isDeleting && charIndex === currentRole.length) {
+            isWaiting = true;
+            setTimeout(() => {
+                isDeleting = true;
+                isWaiting = false;
+            }, 2000);
+        }
+        
+        if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+        }
+        
+        let typingSpeed = isDeleting ? 80 : 120;
+        setTimeout(typeWriter, isWaiting ? 2000 : typingSpeed);
+    }
+    
+  
 
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
+    // ===== EVENT LISTENERS =====
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
 
+    if (hamburger) {
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navLinks.classList.toggle('active');
         });
+    }
 
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
-            });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
         });
+    });
 
-        const particlesContainer = document.getElementById('particlesContainer');
+    // Particles
+    const particlesContainer = document.getElementById('particlesContainer');
+    if (particlesContainer) {
         for (let i = 0; i < 30; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
@@ -1149,11 +1157,13 @@
             particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
             particlesContainer.appendChild(particle);
         }
+    }
 
-        const contactForm = document.querySelector('.contact-form');
+    // Contact form
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-
             gsap.to('.submit-button', {
                 scale: 0.95,
                 duration: 0.1,
@@ -1165,22 +1175,28 @@
                 }
             });
         });
+    }
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
         });
-    </script>
+    });
+    
+    // ===== START EVERYTHING =====
+    setTimeout(() => {
+        typeWriter();
+    }, 500);
+    
+    initAnimations();
+</script>
 </body>
 </html>
-
-
-<!-- https://app.spline.design/file/4ffff18c-8f91-4a6d-aec2-9e3573f4cda1 -->
