@@ -37,56 +37,8 @@
             line-height: 1.6;
         }
 
-        .preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: var(--bg-darker);
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 40px;
-        }
-
-        .preloader-logo {
-            font-size: 4rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 0.1em;
-            text-shadow: 0 0 40px rgba(0, 212, 255, 0.5);
-        }
-
-        .progress-container {
-            width: 300px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-bar {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            box-shadow: 0 0 20px var(--primary-color);
-            border-radius: 10px;
-        }
-
-        .progress-text {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-top: 10px;
-            letter-spacing: 0.2em;
-        }
-
+     
+       
         nav {
             position: fixed;
             top: 0;
@@ -226,18 +178,7 @@
             background-clip: text;
         }
         
-        /* Cursive italic style for rotating role - only Developer/Designer */
-        /* .rotating-role {
-            font-family: 'Dancing Script', cursive;
-            font-style: italic;
-            font-weight: 700;
-            display: inline-block;
-            background: linear-gradient(135deg, #dfd2f8, #b266ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
-        } */
+       
         /* Replace your .rotating-role CSS with this */
         .typing-role {
             font-family: 'Dancing Script', cursive;
@@ -307,13 +248,14 @@
         }
 
         section {
-            padding: 130px 60px;
+            padding: 70px 30px;
             position: relative;
         }
 
         .section-title {
+            position: relative; 
             font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
+            font-weight: 100;
             margin-bottom: 30px;
             text-align: center;
             background: linear-gradient(165deg, #f7f4fff0, #6e00ff);
@@ -321,6 +263,20 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        /* Underline */
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -0px;
+    transform: translateX(-50%);
+    width: 10%;
+    height: 3px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #b266ff, #6e00ff);
+    box-shadow: 0 0 15px rgba(178, 102, 255, 0.6);
+    transition: width 0.4s ease;
+}
 
         .about-container {
             display: grid;
@@ -382,46 +338,168 @@
 
         .about-content p {
             font-size: 1.1rem;
+            font-weight:lighter;
             color: var(--text-secondary);
             margin-bottom: 30px;
             line-height: 1.8;
         }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
+        .about-content b{
+            color: #f8f3ff;
         }
 
-        .skill-item {
+        /* ================= TECH STACK SECTION ================= */
+
+.techstack-section {
+    position: relative;
+    padding: 120px 30px;
+    background: radial-gradient(circle at center, #2d0b52 0%, #0a0a0f 60%);
+    overflow: hidden;
+}
+
+/* soft glowing background lines effect */
+.techstack-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(124,58,237,0.3), transparent 70%);
+    filter: blur(100px);
+    opacity: 0.6;
+    z-index: 0;
+}
+
+.techstack-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 22px;
+    justify-items: center;
+}
+
+.tech-card {
+    width: 110px;
+    height: 110px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    transition: all 0.35s ease;
+    cursor: pointer;
+}
+
+.tech-card i {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    color: #e9d5ff;
+}
+
+.tech-card span {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.7);
+}
+
+.tech-card:hover {
+    transform: translateY(-8px) scale(1.05);
+    border-color: #b266ff;
+    box-shadow: 0 15px 35px rgba(124,58,237,0.4);
+    background: rgba(124,58,237,0.15);
+}
+
+
+        /* ----- COMPACT & INTERACTIVE WORK EXPERIENCE (replaces skills grid) ----- */
+        .work-compact {
+            display: flex;
+            gap: 16px;
+            margin-top: 30px;
+            position: relative;
+        }
+        .work-item {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            border-radius: 18px;
+            padding: 20px 24px 20px 56px;
+            backdrop-filter: blur(8px);
+            transition: all 0.25s ease;
+            position: relative;
             cursor: pointer;
         }
-
-        .skill-item:hover {
-            transform: translateY(-10px);
-            background: var(--glass-border);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+        .work-item:hover {
+            transform: scale(1.01) translateX(6px);
+            background: rgba(124, 58, 237, 0.18);
+            border-color: var(--primary-color);
+            box-shadow: 0 6px 20px rgba(0,212,255,0.25);
         }
-
-        .skill-item i {
-            font-size: 2.5rem;
-            color: #b400ff;
-            margin-bottom: 10px;
+        .work-icon {
+            position: absolute;
+            left: 16px;
+            top: 9px;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            filter: drop-shadow(0 0 6px rgba(0,212,255,0.6));
+            padding: 2px;
+            width: 34px;
+            text-align: center;
         }
-
-        .skill-item span {
-            display: block;
-            font-size: 0.9rem;
+        .work-title {
+            font-size: 0.84rem;
+            font-weight: 900;
+            margin-bottom: 4px;
+            background: linear-gradient(135deg, #ffffff, #80dbf1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .work-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 3px 12px;
+            background: rgba(0,212,255,0.08);
+            border: 1px solid rgba(124,58,237,0.6);
+            border-radius: 30px;
+            color: #b3e4ff;
+            letter-spacing: 0.3px;
+        }
+        .work-desc {
             color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-top: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
         }
+        .work-desc span {
+            color: #d4b3ff;
+        }
+        .work-meta {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #b0b9d0;
+        }
+        .work-meta i {
+            color: #9d7aff;
+        }
+        /* remove the vertical line – makes section cleaner */
+        /* -------------------------------------------- */
 
         .projects {
             background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
@@ -791,7 +869,7 @@
             }
 
             section {
-                padding: 50px 30px;
+                padding: 0px 30px;
             }
 
             .hero-title {
@@ -830,6 +908,13 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 15px;
+            }
+            .work-item {
+                padding: 16px 20px 16px 52px;
+            }
+            .work-icon {
+                left: 14px;
+                font-size: 1.6rem;
             }
         }
     </style>
@@ -875,38 +960,71 @@
                     <img src="https://uploads.onecompiler.io/44an5bfqh/44d9wngpr/profile.png" alt="Esha Profile" class="profile-image">
                 </div>
                 <div class="about-content">
-                    <h3>Creative Developer & Designer</h3>
-                    <p>I'm a passionate web developer specializing in creating stunning, high-performance websites and applications. With expertise in modern technologies and a keen eye for design, I bring ideas to life through clean code and innovative solutions.</p>
-                    <p>My approach combines technical excellence with creative thinking, ensuring every project not only functions flawlessly but also provides an exceptional user experience.</p>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <i class="ph-light ph-file-html"></i>
-                            <span>HTML5</span>
+                    <h3>Creative Web Developer</h3>
+                    <p>I'm a Creative Web Developer with over <b>a year of hands-on experience</b> building modern, performance-driven websites. I focus on creating digital experiences that are not only visually engaging but thoughtfully built to perform. Over time, I've had the opportunity to work on multiple <b>real-world client projects</b>, helping transform ideas into fully functional websites that support actual businesses. My core expertise lies in <b>Shopify and WordPress</b>, where I build scalable, user-friendly, and conversion-aware platforms.</p>
+                    <p>I also completed a 3-month <b>MERN Stack</b> internship , contributing to a full-stack e-commerce project within a collaborative team environment. Starting my journey as <b>a freelancer</b> during college helped me develop strong ownership, client communication skills, and a practical, results-oriented mindset. I believe great websites should feel <b>creative, interactive, and purposeful</b> — not just exist, but <b>truly work.</b></p>
+                    
+                    <!-- ========== COMPACT & INTERACTIVE WORK EXPERIENCE ========== 
+                         replaces old skills grid — now shorter, tight, still vivid -->
+                    <div class="work-compact">
+                        
+                        <div class="work-item">
+                            <div class="work-icon"><i class="ph-light ph-briefcase"></i></div>
+                            <div class="work-title">
+                                Freelance Web Developer
+                                <span class="work-badge">1+ year · college</span>
+                            </div>
+                            
                         </div>
-                        <div class="skill-item">
-                            <i class="ph-light ph-file-css"></i>
-                            <span>CSS3</span>
+                        
+                        <div class="work-item">
+                            <div class="work-icon"><i class="ph-light ph-rocket"></i></div>
+                            <div class="work-title">
+                                MERN Stack Intern
+                                <span class="work-badge">3 months · full‑stack</span>
+                            </div>
+                            
                         </div>
-                        <div class="skill-item">
-                            <i class="ph-light ph-file-js"></i>
-                            <span>JavaScript</span>
+                        
+                        <div class="work-item">
+                            <div class="work-icon"><i class="ph-light ph-buildings"></i></div>
+                            <div class="work-title">
+                                Web Developer @ Agency
+                                <span class="work-badge">Current · 1 year</span>
+                            </div>
+                            
                         </div>
-                        <div class="skill-item">
-                            <i class="ph-light ph-atom"></i>
-                            <span>React</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="ph-light ph-lightning"></i>
-                            <span>GSAP</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="ph-light ph-git-branch"></i>
-                            <span>Git</span>
-                        </div>
+                        
                     </div>
+                    <!-- ========== END COMPACT WORK EXPERIENCE ========== -->
+                    
                 </div>
             </div>
         </section>
+
+        <section class="techstack-section">
+    <div class="techstack-container">
+        <h2 class="section-title">TECH STACK</h2>
+
+        <div class="tech-grid">
+
+            <div class="tech-card"><i class="ph-light ph-file-html"></i><span>HTML</span></div>
+            <div class="tech-card"><i class="ph-light ph-file-css"></i><span>CSS</span></div>
+            <div class="tech-card"><i class="ph-light ph-file-js"></i><span>JavaScript</span></div>
+            <div class="tech-card"><i class="ph-light ph-react-logo"></i><span>React</span></div>
+            <div class="tech-card"><i class="ph-light ph-node-logo"></i><span>Node.js</span></div>
+            <div class="tech-card"><i class="ph-light ph-database"></i><span>MongoDB</span></div>
+            <div class="tech-card"><i class="ph-light ph-git-branch"></i><span>Git</span></div>
+            <div class="tech-card"><i class="ph-light ph-github-logo"></i><span>GitHub</span></div>
+            <div class="tech-card"><i class="ph-light ph-cloud"></i><span>Firebase</span></div>
+            <div class="tech-card"><i class="ph-light ph-wordpress-logo"></i><span>WordPress</span></div>
+            <div class="tech-card"><i class="ph-light ph-shopping-cart"></i><span>Shopify</span></div>
+            <div class="tech-card"><i class="ph-light ph-figma-logo"></i><span>Figma</span></div>
+
+        </div>
+    </div>
+</section>
+
 
         <section id="projects" class="projects"   >
             <h2 class="section-title">Featured Projects</h2>
@@ -1010,21 +1128,21 @@
                     <div class="hobby-icon">
                         <i class="ph-light ph-palette"></i>
                     </div>
-                    <h3>Digital Art</h3>
+                    <h3>Vloging</h3>
                     <p>Creating illustrations and concept art, blending traditional techniques with modern digital tools.</p>
                 </div>
                 <div class="hobby-card">
                     <div class="hobby-icon">
                         <i class="ph-light ph-headphones"></i>
                     </div>
-                    <h3>Music Production</h3>
+                    <h3>Listening Music</h3>
                     <p>Composing electronic beats and ambient soundscapes for relaxation and creative projects.</p>
                 </div>
                 <div class="hobby-card">
                     <div class="hobby-icon">
                         <i class="ph-light ph-plant"></i>
                     </div>
-                    <h3>Gardening</h3>
+                    <h3>Crafting</h3>
                     <p>Cultivating a small indoor garden, finding peace and balance in nurturing plants.</p>
                 </div>
             </div>
@@ -1079,7 +1197,6 @@
             </div>
         </footer>
     </main>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
@@ -1089,7 +1206,7 @@
     
     // ===== TYPEWRITER EFFECT =====
     const typingElement = document.getElementById('typing-role');
-    const roles = ['Developer', 'Designer'];
+    const roles = ['Developer', 'Developer'];
     let roleIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -1196,7 +1313,7 @@
         typeWriter();
     }, 500);
     
-    initAnimations();
+    // removed unused call
 </script>
 </body>
 </html>
